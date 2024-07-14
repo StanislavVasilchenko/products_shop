@@ -1,5 +1,5 @@
 from django.contrib import admin
-from shop.models import Category, SubCategory
+from shop.models import Category, SubCategory, Product
 
 
 @admin.register(Category)
@@ -18,3 +18,12 @@ class SubCategoryAdmin(admin.ModelAdmin):
     class Meta:
         model = SubCategory
         fields = ('parent_category', 'name',)
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'image', 'price', 'category', 'sub_category')
+
+    class Meta:
+        model = Product
+        fields = ('name', 'slug', 'image', 'price', 'category', 'sub_category')
