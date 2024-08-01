@@ -9,4 +9,19 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('name', 'image', 'price', 'category', 'sub_category')
+        fields = ('name', 'price', 'category', 'sub_category',)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['images'] = [
+            instance.image.url,
+            instance.image_middle.url,
+            instance.image_small.url
+        ]
+        return representation
+
+
+class ProductCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = "__all__"
